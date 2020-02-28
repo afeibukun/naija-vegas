@@ -1,0 +1,99 @@
+
+const Greetings = props => <p> &lt; Hello {props.name} /&gt; </p>;
+class Greet extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello {this.props.name}</h1>
+        <code>Heard you are {this.props.age} years old </code>
+        <code>
+          and you are <mark>{this.props.gender}</mark>
+        </code>
+      </div>
+    );
+  }
+}
+
+class AddStudent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      studentData: [
+        {
+          name: "James",
+          age: 35
+        }
+      ]
+    };
+  }
+
+  onSubmit = event => {
+    event.preventDefault();
+    const name = this.name.value;
+    const age = this.age.value;
+    const info = { name: name, age: age };
+    const studentData = this.state.studentData;
+    studentData.push(info);
+    this.setState({
+      studentData: studentData
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <form className="form-inline" onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            className="form-control mb-2 mr-sm-2 mb-sm-0"
+            placeholder="Name"
+            ref={input => (this.name = input)}
+          />
+          <div className="input-group mb-2 mr-sm-2 mb-sm-0">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Age"
+              ref={input => (this.age = input)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary btn-block">
+            Save
+          </button>
+        </form>
+        <br />
+        <div className="row">
+          {this.state.studentData.map((info, index) => (
+            <Card info={info} key={index} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
+const Card = props => (
+  <div className="col-md-6 col-lg-3">
+    <div className="card mb-3">
+      <div
+        className="card-body"
+        style={{ border: "2px solid #123", padding: "5px 10px" }}
+      >
+        {" "}
+        <p className="card-title">
+          <span>Name: </span>
+          {props.info.name}
+        </p>{" "}
+        <p className="card-text">
+          <span>Age: </span>
+          {props.info.age}
+        </p>{" "}
+      </div>
+    </div>
+  </div>
+);
+
+
+<Greetings name={`Ade`} />
+        <Greet name="Adelowo" age="20" gender="female" />
+        <AddStudent />
